@@ -1,7 +1,10 @@
+import 'package:docdoc_app/core/helpers/extensions.dart';
+import 'package:docdoc_app/core/helpers/spacing.dart';
+import 'package:docdoc_app/core/routing/routes.dart';
 import 'package:docdoc_app/core/theming/styles.dart';
 import 'package:docdoc_app/features/onboarding/widgets/doc_logo_and_name.dart';
 import 'package:docdoc_app/features/onboarding/widgets/doctor_image_and_text.dart';
-import 'package:docdoc_app/features/onboarding/widgets/get_started_button.dart';
+import 'package:docdoc_app/core/widgets/app_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,7 +24,7 @@ class OnBoardingScreen extends StatelessWidget {
             child: Column(
               children: [
                 const DocLogoAndName(),
-                SizedBox(height: 30.h),
+                verticalSpace(30),
                 const DoctorImageAndText(),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -32,8 +35,14 @@ class OnBoardingScreen extends StatelessWidget {
                         style: TextStyles.font13GrayRegular,
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 30.h),
-                      const GetStartedButton(),
+                      verticalSpace(30),
+                      AppTextButton(
+                        buttonText: 'Get Started',
+                        textStyle: TextStyles.font16WhiteSemiBold,
+                        onPressed: () {
+                          context.pushNamed(Routes.loginScreen);
+                        },
+                      ),
                     ],
                   ),
                 ),
