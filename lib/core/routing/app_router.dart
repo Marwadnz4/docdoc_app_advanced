@@ -4,6 +4,8 @@ import 'package:docdoc_app/features/home/ui/home_screen.dart';
 import 'package:docdoc_app/features/login/logic/login_cubit.dart';
 import 'package:docdoc_app/features/login/ui/login_screen.dart';
 import 'package:docdoc_app/features/onboarding/onboarding_screen.dart';
+import 'package:docdoc_app/features/signup/logic/sign_up_cubit.dart';
+import 'package:docdoc_app/features/signup/ui/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,6 +19,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const OnBoardingScreen(),
         );
+
       case Routes.loginScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -24,7 +27,16 @@ class AppRouter {
             child: const LoginScreen(),
           ),
         );
-        case Routes.homeScreen:
+
+      case Routes.signUpScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<SignupCubit>(),
+            child: const SignUpScreen(),
+          ),
+        );
+        
+      case Routes.homeScreen:
         return MaterialPageRoute(
           builder: (_) => const HomeScreen(),
         );

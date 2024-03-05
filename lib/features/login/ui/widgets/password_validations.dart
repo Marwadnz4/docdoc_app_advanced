@@ -2,7 +2,6 @@ import 'package:docdoc_app/core/helpers/spacing.dart';
 import 'package:docdoc_app/core/theming/colors.dart';
 import 'package:docdoc_app/core/theming/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class PasswordValidations extends StatelessWidget {
   final bool hasLowerCase;
@@ -10,6 +9,8 @@ class PasswordValidations extends StatelessWidget {
   final bool hasNumber;
   final bool hasSpecialCharacter;
   final bool hasMinLength;
+  final bool hasPasswordsMatch;
+  final bool isSignUpScreen;
 
   const PasswordValidations({
     super.key,
@@ -18,6 +19,8 @@ class PasswordValidations extends StatelessWidget {
     required this.hasNumber,
     required this.hasSpecialCharacter,
     required this.hasMinLength,
+    this.hasPasswordsMatch = false,
+    this.isSignUpScreen = false,
   });
 
   @override
@@ -33,6 +36,8 @@ class PasswordValidations extends StatelessWidget {
         buildValidationRow('At least 1 special character', hasSpecialCharacter),
         verticalSpace(2),
         buildValidationRow('At least 8 characters long', hasMinLength),
+        if (isSignUpScreen) verticalSpace(2),
+        if (isSignUpScreen) buildValidationRow('Your Passwords must be Matching', hasPasswordsMatch),
       ],
     );
   }
