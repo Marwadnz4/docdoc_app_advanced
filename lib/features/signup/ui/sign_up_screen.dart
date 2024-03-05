@@ -1,17 +1,17 @@
 import 'package:docdoc_app/core/widgets/app_text_button.dart';
-import 'package:docdoc_app/features/login/logic/login_cubit.dart';
-import 'package:docdoc_app/features/login/ui/widgets/dont_have_account_text.dart';
-import 'package:docdoc_app/features/login/ui/widgets/email_and_password.dart';
-import 'package:docdoc_app/features/login/ui/widgets/login_bloc_listener.dart';
 import 'package:docdoc_app/features/login/ui/widgets/terms_and_conditions_text.dart';
+import 'package:docdoc_app/features/signup/logic/sign_up_cubit.dart';
+import 'package:docdoc_app/features/signup/ui/widgets/already_have_account_text.dart';
+import 'package:docdoc_app/features/signup/ui/widgets/sign_up_bloc_listener.dart';
+import 'package:docdoc_app/features/signup/ui/widgets/sign_up_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:docdoc_app/core/theming/styles.dart';
 import 'package:docdoc_app/core/helpers/spacing.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,52 +28,44 @@ class LoginScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Welcome Back',
+                  'Create Account',
                   style: TextStyles.font24BlueBold,
                 ),
                 verticalSpace(8),
                 Text(
-                  'We\'re excited to have you back, can\'t wait to see what you\'ve been up to since you last logged in.',
+                  'Sign up now and start exploring all that our app has to offer. We\'re excited to welcome you to our community!',
                   style: TextStyles.font14GrayRegular,
                 ),
-                verticalSpace(36),
+                verticalSpace(20),
                 Column(
                   children: [
-                    const EmailAndPassword(),
-                    verticalSpace(24),
-                    Align(
-                      alignment: AlignmentDirectional.centerEnd,
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyles.font13BlueRegular,
-                      ),
-                    ),
-                    verticalSpace(40),
+                    const SignUpForm(),
+                    verticalSpace(20),
                     AppTextButton(
-                      buttonText: 'Login',
+                      buttonText: 'Create Account',
                       textStyle: TextStyles.font16WhiteSemiBold,
                       onPressed: () {
-                        validatedThenDoLogin(context);
+                        validatedThenDoSignUp(context);
                       },
                     ),
                     verticalSpace(16),
                     const TermsAndConditionsText(),
-                    verticalSpace(60),
-                    const DontHaveAccountText(),
-                    const LoginBlocListener(),
+                    verticalSpace(20),
+                    const AlreadyHaveAccountText(),
+                    const SignUpBlocListener(),
                   ],
                 ),
               ],
-            ), 
+            ),
           ),
         ),
       ),
     );
   }
 
-  void validatedThenDoLogin(BuildContext context) {
-    if (context.read<LoginCubit>().formKey.currentState!.validate()) {
-      context.read<LoginCubit>().emitLoginState();
+  void validatedThenDoSignUp(BuildContext context) {
+    if (context.read<SignupCubit>().formKey.currentState!.validate() && context.read<SignupCubit>().passwordController.text == context.read<SignupCubit>().passwordConfirmationController.text) {
+      context.read<SignupCubit>().emitSignUpState();
     }
   }
 }

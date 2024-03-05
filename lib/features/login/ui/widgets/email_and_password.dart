@@ -4,7 +4,6 @@ import 'package:docdoc_app/core/widgets/app_text_form_field.dart';
 import 'package:docdoc_app/features/login/logic/login_cubit.dart';
 import 'package:docdoc_app/features/login/ui/widgets/password_validations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EmailAndPassword extends StatefulWidget {
@@ -17,7 +16,6 @@ class EmailAndPassword extends StatefulWidget {
 class _EmailAndPasswordState extends State<EmailAndPassword> {
   bool isObscureText = true;
   late TextEditingController passwordController;
-
   bool hasLowerCase = false;
   bool hasUpperCase = false;
   bool hasNumber = false;
@@ -52,6 +50,7 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
           AppTextFormField(
             controller: context.read<LoginCubit>().emailController,
             hintText: 'Email',
+            keyboardType: TextInputType.emailAddress,
             validator: (value) {
               if (value == null || value.isEmpty || !AppRegex.isEmailValid(value)) {
                 return 'Please enter a valid email';
@@ -62,13 +61,14 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
           AppTextFormField(
             controller: context.read<LoginCubit>().passwordController,
             hintText: 'Password',
+            keyboardType: TextInputType.visiblePassword,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter a valid password';
               }
             },
             isObscureText: isObscureText,
-            suffixIcon: GestureDetector( 
+            suffixIcon: GestureDetector(
               onTap: () {
                 setState(() {
                   isObscureText = !isObscureText;
